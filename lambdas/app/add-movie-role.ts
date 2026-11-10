@@ -55,10 +55,6 @@ export const handler = async (
         {
           Put: {
             TableName: tableName,
-            Key: {
-              PK: movieKey(role.movieId),
-              SK: actorKey(role.actorId)
-            },
             Item: {
               PK: movieKey(role.movieId),
               SK: actorKey(role.actorId),

@@ -111,13 +111,18 @@ export class AppApiStack extends cdk.Stack {
     const plan = api.addUsagePlan('AdminUsuagePlan', {
       name: 'Admin API Usage Plan',
       throttle: { rateLimit: 10, burstLimit: 2},
+      apiStages: [
+        {
+          api: api,
+          stage: api.deploymentStage,
+        },
+      ],
     });
     
     const key = api.addApiKey('AdminApiKey', {
       apiKeyName: 'AdminSecretToken',
     });
     plan.addApiKey(key);
-    plan.addStage(api.deploymentStage);
 
     new cdk.CfnOutput(this, 'AppApiEndpointUrl', { value: api.url });
   }
